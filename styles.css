@@ -1,0 +1,92 @@
+html {
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #333; /* Requirement 6: Background color */
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Flexbox */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.content-card {
+    background-color: white;
+    padding: 30px; /* Box model padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 60%;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+ul {
+    text-align: left;
+    display: inline-block;
+}
+
+/* Botón */
+.btn-style {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px; /* Rounded border */
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Media query */
+@media (max-width: 600px) {
+    /* Adjust layout width for phones */
+    .content-card {
+        width: 90%; 
+        padding: 15px;
+    }
+
+    /* Cambio de color de encabezado */
+    header {
+        background-color: #ff0033;
+    }
+
+    /* Ajuste de tamaño de letra de encabezado */
+    h1 {
+        font-size: 3rem;
+    }
+
+    /* Cambio de color de botón */
+    .btn-style {
+        background-color: rgb(15, 161, 63);
+    }
+}
