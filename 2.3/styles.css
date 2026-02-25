@@ -1,0 +1,174 @@
+:root{
+  --bg: #0b1220;
+  --card: #111a2e;
+  --text: #e8eefc;
+  --muted: #b7c4e5;
+  --border: rgba(232,238,252,0.18);
+  --accent: #4aa3ff;
+  --accent-2: #2f7bff;
+  --shadow: rgba(0,0,0,0.25);
+}
+
+*{ box-sizing: border-box; }
+
+body{
+  margin: 0;
+  padding: 24px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+
+main{
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Encabezados */
+h1, h2, h3{
+  margin: 0 0 10px 0;
+}
+
+p{
+  margin: 8px 0;
+  color: var(--muted);
+}
+
+/* Secciones tipo card */
+header,
+section,
+footer{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 18px 40px var(--shadow);
+}
+
+/* Inputs */
+label{
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+input[type="text"]{
+  width: 100%;
+  max-width: 320px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  color: var(--text);
+  outline: none;
+  margin-right: 8px;
+}
+
+input[type="text"]::placeholder{
+  color: rgba(183,196,229,0.8);
+}
+
+input[type="text"]:focus{
+  border-color: rgba(74,163,255,0.7);
+  box-shadow: 0 0 0 3px rgba(74,163,255,0.18);
+}
+
+/* Botones */
+button{
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  box-shadow: 0 10px 20px var(--shadow);
+  transition: transform 160ms ease, background-color 160ms ease;
+  margin-top: 10px;
+  margin-right: 8px;
+}
+
+button:hover{
+  transform: translateY(-1px);
+  background: var(--accent-2);
+}
+
+button:active{
+  transform: translateY(0px);
+}
+
+/* Resultado */
+#resultado{
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.25);
+  color: var(--text); /* JS lo cambia con .style.color */
+  font-weight: 800;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+/* Estadísticas */
+#estadisticas{
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Historial */
+#historial{
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0 0 0;
+}
+
+#historial li{
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin: 10px 0;
+  background: rgba(255,255,255,0.03);
+  color: var(--text);
+}
+
+#historial li::before{
+  content: "🧾 ";
+}
+
+/* Links */
+a{
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: rgba(232,238,252,0.35);
+}
+
+a:hover{
+  text-decoration-color: rgba(232,238,252,0.85);
+}
+
+/* Footer */
+footer small{
+  color: rgba(232,238,252,0.65);
+}
+
+/* Responsive: botones debajo si pantalla chica */
+@media (max-width: 720px){
+  input[type="text"]{
+    max-width: 100%;
+  }
+  button{
+    width: 100%;
+    margin-right: 0;
+  }
+}
