@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3.3 Diseña: Método para agregar empleados</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Tienda y Empleados</h1>
+      <p class="sub">
+        Ortiz Osuna José Luis | 08IDRPMA
+      </p>
+    </header>
+
+    <section class="card">
+      <h2>Captura de empleados</h2>
+
+      <form id="formEmpleado" class="grid" autocomplete="off">
+        <label class="field">
+          <span>Nombre</span>
+          <input id="nombre" type="text" placeholder="Ej. David Ramos" required />
+        </label>
+
+        <label class="field">
+          <span>Puesto</span>
+          <input id="puesto" type="text" placeholder="Ej. Vendedor/a" required />
+        </label>
+
+        <label class="field">
+          <span>Salario</span>
+          <input id="salario" type="number" min="0" step="0.01" placeholder="Ej. 12500" required />
+        </label>
+
+        <label class="field">
+          <span>Identificador</span>
+          <input id="identificador" type="text" placeholder="Ej. EMP-001 (Opcional)" />
+        </label>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" id="btnAgregar">Agregar empleado</button>
+          <button type="button" class="btn" id="btnMostrar">Mostrar lista</button>
+          <button type="button" class="btn" id="btnOrdenarAsc">Ordenar salario ↑</button>
+          <button type="button" class="btn" id="btnOrdenarDesc">Ordenar salario ↓</button>
+        </div>
+      </form>
+
+      <div class="toolbar">
+        <div class="field inline">
+          <span>Filtrar por puesto</span>
+          <select id="filtroPuesto">
+            <option value="__TODOS__">Todos</option>
+          </select>
+        </div>
+        <button type="button" class="btn" id="btnFiltrar">Filtrar</button>
+
+        <button type="button" class="btn danger" id="btnLimpiar">Borrar todo (localStorage)</button>
+      </div>
+
+      <div id="mensaje" class="mensaje" role="alert" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <h2>Lista de empleados</h2>
+      <p class="sub">Se renderiza dinámicamente mediante manipulación del DOM.</p>
+
+      <div class="tableWrap">
+        <table class="tabla" aria-describedby="ayudaTabla">
+          <thead>
+            <tr>
+              <th>Identificador</th>
+              <th>Nombre</th>
+              <th>Puesto</th>
+              <th class="num">Salario</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyEmpleados">
+          </tbody>
+        </table>
+      </div>
+
+      <p id="ayudaTabla" class="hint">
+        Nota: Puedes eliminar un empleado con el botón “Eliminar”.
+      </p>
+    </section>
+
+    <section class="card" id="conceptos">
+      <h2>Conceptos clave</h2>
+
+      <div class="conceptos">
+        <h3>1) Programación Orientada a Objetos (POO) y clases anidadas</h3>
+        <ul>
+          <li><strong>Tienda</strong> funciona como “contenedor” de empleados y define los métodos para administrar la información.</li>
+          <li><strong>Empleado</strong> es una clase relacionada dentro de <code>Tienda</code> (clase anidada) para modelar cada registro.</li>
+        </ul>
+        <pre><code>class Tienda {
+  static Empleado = class Empleado {
+    constructor({ nombre, puesto, salario, identificador }) { /* ... */ }
+  };
+}</code></pre>
+
+        <h3>2) Manejo de eventos</h3>
+        <ul>
+          <li>Usamos <code>addEventListener</code> para reaccionar al envío del formulario y a los botones (mostrar, filtrar, ordenar).</li>
+          <li>Para “Eliminar”, se usa <em>delegación de eventos</em> en el <code>&lt;tbody&gt;</code> (más eficiente que un listener por fila).</li>
+        </ul>
+        <pre><code>form.addEventListener("submit", (e) =&gt; {
+  e.preventDefault();
+  // agregar empleado...
+});</code></pre>
+
+        <h3>3) Manipulación del DOM (render dinámico)</h3>
+        <ul>
+          <li>La tabla se construye dinámicamente con <code>createElement</code> y <code>appendChild</code>.</li>
+          <li>Si no hay empleados, se inserta una fila con el mensaje “Sin empleados para mostrar”.</li>
+        </ul>
+        <pre><code>const tr = document.createElement("tr");
+const td = document.createElement("td");
+td.textContent = empleado.nombre;
+tr.appendChild(td);
+tbody.appendChild(tr);</code></pre>
+
+        <h3>4) Almacenamiento local (localStorage)</h3>
+        <ul>
+          <li>Guardamos el arreglo en localStorage con <code>JSON.stringify</code> para conservarlo al recargar.</li>
+          <li>Al iniciar, cargamos con <code>JSON.parse</code> y rehidratamos la información en instancias de <code>Empleado</code>.</li>
+        </ul>
+        <pre><code>// Guardar
+localStorage.setItem("tienda_empleados_v1", JSON.stringify(empleados));
+
+// Cargar
+const empleados = JSON.parse(localStorage.getItem("tienda_empleados_v1") || "[]");</code></pre>
+
+        <h3>5) Separación de responsabilidades (lógica vs interfaz)</h3>
+        <ul>
+          <li><strong>Model:</strong> clases <code>Tienda</code> / <code>Empleado</code> (reglas del negocio).</li>
+          <li><strong>Storage:</strong> guardar/cargar en localStorage.</li>
+          <li><strong>UI:</strong> lectura de inputs, render de tabla y mensajes (DOM).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Referencias</h2>
+      <ul class="fuentes">
+        <li>Mozilla. (s.f.). Classes. Recuperado el 17 de marzo de 2026, de MDN Web Docs: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noreferrer">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes</a></li>
+        <li>Mozilla. (s.f.). Public class fields. Recuperado el 17 de marzo de 2026, de MDN Web Docs: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields" target="_blank" rel="noreferrer">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields</a></li>
+        <li>Mozilla. (s.f.). EventTarget.addEventListener(). Recuperado el 17 de marzo de 2026, de MDN Web Docs: <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener" target="_blank" rel="noreferrer">https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener</a></li>
+        <li>Mozilla. (s.f.). Document.createElement(). Recuperado el 17 de marzo de 2026, de MDN Web Docs: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement" target="_blank" rel="noreferrer">https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement</a></li>
+        <li>Mozilla. (s.f.). Element.append(). Recuperado el 17 de marzo de 2026, de MDN Web Docs: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/append" target="_blank" rel="noreferrer">https://developer.mozilla.org/en-US/docs/Web/API/Element/append</a></li>
+        <li>Mozilla. (s.f.). Window.localStorage. Recuperado el 17 de marzo de 2026, de MDN Web Docs: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank" rel="noreferrer">https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage</a></li>
+        <li>Mozilla. (s.f.). JSON. Recuperado el 17 de marzo de 2026, de MDN Web Docs: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON" target="_blank" rel="noreferrer">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON</a></li>
+      </ul>
+    </section>
+
+
+    <footer class="footer">
+      <small>Desarollo de Software Frontend I</small>
+    </footer>
+  </main>
+</body>
+</html>

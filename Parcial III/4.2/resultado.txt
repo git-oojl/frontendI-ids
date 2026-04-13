@@ -1,0 +1,26 @@
+=== Lista original ===
+David
+Axel
+Jonathan
+Mya
+Andrea
+
+=== Lista en mayúsculas ===
+DAVID
+AXEL
+JONATHAN
+MYA
+ANDREA
+
+=== Lista ordenada alfabéticamente ===
+Andrea
+Axel
+David
+Jonathan
+Mya
+
+=== Total de nombres ===
+5
+
+=== Nombre con mayor longitud ===
+Jonathan
